@@ -972,7 +972,8 @@ def installMklauncher():
 
 def installRepositorySignature():
     info('Installing Machinekit repository signature...')
-    _, retcode = runSshCommand('sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 43DDF224')
+    installFile('trusted-keys', '/tmp/trusted-keys')
+    _, retcode = runSshCommand('sudo apt-key add /tmp/trusted-keys && rm /tmp/trusted-keys')
     if retcode == 0:
         info('done\n')
     else:
